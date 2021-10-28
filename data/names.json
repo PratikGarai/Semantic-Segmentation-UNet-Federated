@@ -1,0 +1,28 @@
+{
+    "names" : [
+        {
+            "image" : "img_00001.jpg",
+            "city"  : "Alandur"
+        },
+        {
+            "image" : "img_00002.jpg",
+            "city"  : "Ambathur"
+        },
+        {
+            "image" : "img_00003.jpg",
+            "city"  : "Aminjikarai"
+        },
+        {
+            "image" : "img_00004.jpg",
+            "city"  : "Arumbakkam"
+        },
+        {
+            "image" : "img_00005.jpg",
+            "city"  : "Chetpet"
+        },
+        {
+            "image" : "img_00006.jpg",
+            "city"  : "Vadaagaram"
+        }
+    ]
+}
