@@ -127,9 +127,3 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
-
-
-data/
-*.zip
-saved_models
-Semantic segmentation dataset
