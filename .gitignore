@@ -1,2 +1,4 @@
 __pycache__
 tmp*.*
+loss_plots.png
+saved_models

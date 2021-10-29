@@ -21,7 +21,7 @@ class segDataset(torch.utils.data.Dataset):
 
     def __getitem__(self, idx):
         img_path = self.IMG_NAMES[idx]
-        image, cls_mask = get_image_and_mask(img_path)
+        image, cls_mask = get_image_and_mask(img_path, self.BGR_classes, self.bin_classes)
 
         if self.training==True:
             if self.transform:

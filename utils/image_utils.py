@@ -1,7 +1,7 @@
 import cv2 
 import numpy as np
 from glob import glob
-from json_utils import get_classes
+from utils.json_utils import get_classes
 
 
 def get_image_names(root : str) :
