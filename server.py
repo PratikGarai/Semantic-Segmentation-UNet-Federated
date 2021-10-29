@@ -1,6 +1,4 @@
 import flwr as fl
-import sys
-import numpy as np
 
 # Start Flower server for three rounds of federated learning
 fl.server.start_server(
