@@ -5,6 +5,9 @@ import torchvision.transforms as transforms
 from scipy import ndimage
 from glob import glob
 
+from utils.image_utils import get_image_names, get_image_and_mask
+from utils.json_utils import get_classes
+
 
 class segDataset(torch.utils.data.Dataset):
     def __init__(self, root, training, transform=None):
@@ -12,31 +15,13 @@ class segDataset(torch.utils.data.Dataset):
         self.root = root
         self.training = training
         self.transform = transform
-        self.IMG_NAMES = sorted(glob(self.root + '/*/images/*.jpg'))
-        self.BGR_classes = {'Water' : [ 41, 169, 226],
-                            'Land' : [246,  41, 132],
-                            'Road' : [228, 193, 110],
-                            'Building' : [152,  16,  60], 
-                            'Vegetation' : [ 58, 221, 254],
-                            'Unlabeled' : [155, 155, 155]} # in BGR
-
-        self.bin_classes = ['Water', 'Land', 'Road', 'Building', 'Vegetation', 'Unlabeled']
+        self.IMG_NAMES = get_image_names(self.root)
+        self.BGR_classes, self.bin_classes = get_classes(self.root)
 
 
     def __getitem__(self, idx):
         img_path = self.IMG_NAMES[idx]
-        mask_path = img_path.replace('images', 'masks').replace('.jpg', '.png')
-
-        image = cv2.imread(img_path)
-        mask = cv2.imread(mask_path)
-        cls_mask = np.zeros(mask.shape)  
-        cls_mask[mask == self.BGR_classes['Water']] = self.bin_classes.index('Water')
-        cls_mask[mask == self.BGR_classes['Land']] = self.bin_classes.index('Land')
-        cls_mask[mask == self.BGR_classes['Road']] = self.bin_classes.index('Road')
-        cls_mask[mask == self.BGR_classes['Building']] = self.bin_classes.index('Building')
-        cls_mask[mask == self.BGR_classes['Vegetation']] = self.bin_classes.index('Vegetation')
-        cls_mask[mask == self.BGR_classes['Unlabeled']] = self.bin_classes.index('Unlabeled')
-        cls_mask = cls_mask[:,:,0] 
+        image, cls_mask = get_image_and_mask(img_path)
 
         if self.training==True:
             if self.transform:

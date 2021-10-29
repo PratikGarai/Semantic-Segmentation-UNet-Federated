@@ -1,6 +1,12 @@
 {
     "classes": [
         {
+            "title": "Blank",
+            "shape": "polygon",
+            "color": "#ffffff",
+            "geometry_config": {}
+        },
+        {
             "title": "Primary Residential",
             "shape": "polygon",
             "color": "#f8db24",
