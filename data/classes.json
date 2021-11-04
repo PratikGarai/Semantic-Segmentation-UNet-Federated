@@ -1,81 +1,33 @@
 {
     "classes": [
         {
-            "title": "Blank",
-            "shape": "polygon",
-            "color": "#ffffff",
-            "geometry_config": {}
-        },
-        {
             "title": "Primary Residential",
             "shape": "polygon",
-            "color": "#f8db24",
+            "color": "#f5aebe",
             "geometry_config": {}
         },
         {
             "title": "Mixed Residential",
             "shape": "polygon",
-            "color": "#ed6540",
+            "color": "#f0876a",
             "geometry_config": {}
         },
         {
             "title": "Commercial",
             "shape": "polygon",
-            "color": "#37719a",
+            "color": "#fae355",
             "geometry_config": {}
         },
         {
             "title": "Institutional",
             "shape": "polygon",
-            "color": "#736ec1",
+            "color": "#6390b1",
             "geometry_config": {}
         },
         {
             "title": "Industrial",
             "shape": "polygon",
-            "color": "#f197aa",
-            "geometry_config": {}
-        },
-        {
-            "title": "Special and Hazardous Industrial",
-            "shape": "polygon",
-            "color": "#ecdea6",
-            "geometry_config": {}
-        },
-        {
-            "title": "Open Space and Recreational",
-            "shape": "polygon",
-            "color": "#8ad58a",
-            "geometry_config": {}
-        },
-        {
-            "title": "Urbanisable",
-            "shape": "polygon",
-            "color": "#ba4689",
-            "geometry_config": {}
-        },
-        {
-            "title": "Non Urban",
-            "shape": "polygon",
-            "color": "#8b8070",
-            "geometry_config": {}
-        },
-        {
-            "title": "Water Body",
-            "shape": "polygon",
-            "color": "#a6bfd4",
-            "geometry_config": {}
-        },
-        {
-            "title": "Reserved Forest",
-            "shape": "polygon",
-            "color": "#bfb5a0",
-            "geometry_config": {}
-        },
-        {
-            "title": "Agricultural",
-            "shape": "polygon",
-            "color": "#31a16c",
+            "color": "#938ed0",
             "geometry_config": {}
         }
     ],
