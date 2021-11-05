@@ -17,7 +17,7 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default='./data', help='path to your dataset')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
-    parser.add_argument('--batch', type=int, default=2, help='batch size')
+    parser.add_argument('--batch', type=int, default=1, help='batch size')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
     return parser.parse_args()
 
@@ -40,7 +40,8 @@ if __name__ == '__main__':
 
     test_num = int(0.1 * len(dataset))
     print(f'test data : {test_num}')
-    train_dataset, test_dataset = torch.utils.data.random_split(dataset, [len(dataset)-test_num, test_num], generator=torch.Generator().manual_seed(101))
+    # train_dataset, test_dataset = torch.utils.data.random_split(dataset, [len(dataset)-test_num, test_num], generator=torch.Generator().manual_seed(101))
+    train_dataset, test_dataset = dataset, dataset
     N_DATA, N_TEST = len(train_dataset), len(test_dataset)
 
     train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BACH_SIZE, shuffle=True, num_workers=2)
@@ -56,7 +57,7 @@ if __name__ == '__main__':
         print('Loss function not found!')
 
 
-    model = UNet(n_channels=3, n_classes=13, bilinear=True).to(device)
+    model = UNet(n_channels=3, n_classes=6, bilinear=True).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.5)
     min_loss = torch.tensor(float('inf'))
