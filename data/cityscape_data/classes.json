@@ -1,0 +1,144 @@
+{
+    "classes": [
+        {
+            "title": "unlabeled",
+            "color": "#000000"
+        },
+        {
+            "title": "ego vehicle",
+            "color": "#000000"
+        },
+        {
+            "title": "rectification border",
+            "color": "#000000"
+        },
+        {
+            "title": "out of roi",
+            "color": "#000000"
+        },
+        {
+            "title": "static",
+            "color": "#000000"
+        },
+        {
+            "title": "dynamic",
+            "color": "#6f4a00"
+        },
+        {
+            "title": "ground",
+            "color": "#510051"
+        },
+        {
+            "title": "road",
+            "color": "#804080"
+        },
+        {
+            "title": "sidewalk",
+            "color": "#f423e8"
+        },
+        {
+            "title": "parking",
+            "color": "#faaaa0"
+        },
+        {
+            "title": "rail track",
+            "color": "#e6968c"
+        },
+        {
+            "title": "building",
+            "color": "#464646"
+        },
+        {
+            "title": "wall",
+            "color": "#66669c"
+        },
+        {
+            "title": "fence",
+            "color": "#be9999"
+        },
+        {
+            "title": "guard rail",
+            "color": "#b4a5b4"
+        },
+        {
+            "title": "bridge",
+            "color": "#966464"
+        },
+        {
+            "title": "tunnel",
+            "color": "#96785a"
+        },
+        {
+            "title": "pole",
+            "color": "#999999"
+        },
+        {
+            "title": "polegroup",
+            "color": "#999999"
+        },
+        {
+            "title": "traffic light",
+            "color": "#faaa1e"
+        },
+        {
+            "title": "traffic sign",
+            "color": "#dcdc00"
+        },
+        {
+            "title": "vegetation",
+            "color": "#6b8e23"
+        },
+        {
+            "title": "terrain",
+            "color": "#98fb98"
+        },
+        {
+            "title": "sky",
+            "color": "#4682b4"
+        },
+        {
+            "title": "person",
+            "color": "#dc143c"
+        },
+        {
+            "title": "rider",
+            "color": "#ff0000"
+        },
+        {
+            "title": "car",
+            "color": "#00008e"
+        },
+        {
+            "title": "truck",
+            "color": "#000046"
+        },
+        {
+            "title": "bus",
+            "color": "#003c64"
+        },
+        {
+            "title": "caravan",
+            "color": "#00005a"
+        },
+        {
+            "title": "trailer",
+            "color": "#00006e"
+        },
+        {
+            "title": "train",
+            "color": "#005064"
+        },
+        {
+            "title": "motorcycle",
+            "color": "#0000e6"
+        },
+        {
+            "title": "bicycle",
+            "color": "#770b20"
+        },
+        {
+            "title": "license plate",
+            "color": "#00008e"
+        }
+    ]
+}
