@@ -192,6 +192,13 @@ if __name__ == "__main__":
         })
     
     d["classes"] = classes
+    d["file_system"] = {
+        "file_type" : "png",
+        "images" : "Image",
+        "masks" : "Mask",
+        "image_substr" : "leftImg8bit",
+        "mask_substr" : "gtFine_color"
+    }
     with open("classes.json", "w") as f:
         json.dump(d, f, indent=4)
         print("Json created")

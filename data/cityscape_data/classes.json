@@ -140,5 +140,12 @@
             "title": "license plate",
             "color": "#00008e"
         }
-    ]
+    ],
+    "file_system": {
+        "file_type": "png",
+        "images": "Image",
+        "masks": "Mask",
+        "image_substr": "leftImg8bit",
+        "mask_substr": "gtFine_color"
+    }
 }
