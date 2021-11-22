@@ -43,7 +43,6 @@ if __name__ == '__main__':
     test_num = int(0.1 * len(dataset))
     print(f'Test data : {test_num}')
     print(f"Number of classes : {n_classes}")
-    # train_dataset, test_dataset = torch.utils.data.random_split(dataset, [len(dataset)-test_num, test_num], generator=torch.Generator().manual_seed(101))
     train_dataset, test_dataset = dataset, dataset
     N_DATA, N_TEST = len(train_dataset), len(test_dataset)
 
