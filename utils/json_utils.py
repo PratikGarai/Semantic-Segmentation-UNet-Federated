@@ -4,7 +4,9 @@ from PIL import ImageColor
 
 def get_classes(path : str) :
     f = open(path+"/classes.json", "r")
-    data = json.load(f)["classes"]
+    j = json.load(f)
+    data = j["classes"]
+    fs = j["file_system"]
 
     class_names = []
     color_dict = {}
@@ -13,12 +15,12 @@ def get_classes(path : str) :
         r, g, b = ImageColor.getcolor(i["color"], "RGB")
         color_dict[i["title"]] = (b, g, r)
 
-    return color_dict, class_names
+    return color_dict, class_names, fs
 
 
 
 def main() :
-    class_names, color_dict =  get_classes("../data")
+    class_names, color_dict, _ =  get_classes("../data")
     print(class_names)
     print(color_dict)
 
