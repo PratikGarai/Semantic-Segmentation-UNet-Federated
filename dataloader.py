@@ -10,18 +10,18 @@ from utils.json_utils import get_classes
 
 
 class segDataset(torch.utils.data.Dataset):
-    def __init__(self, root, training, transform=None):
+    def __init__(self, root, meta, training, transform=None):
         super(segDataset, self).__init__()
         self.root = root
         self.training = training
         self.transform = transform
-        self.IMG_NAMES = get_image_names(self.root)
-        self.BGR_classes, self.bin_classes = get_classes(self.root)
+        self.BGR_classes, self.bin_classes, self.fs = get_classes(meta)
+        self.IMG_NAMES = get_image_names(self.root, self.fs)
 
 
     def __getitem__(self, idx):
         img_path = self.IMG_NAMES[idx]
-        image, cls_mask = get_image_and_mask(img_path, self.BGR_classes, self.bin_classes)
+        image, cls_mask = get_image_and_mask(img_path, self.BGR_classes, self.bin_classes, self.fs)
 
         if self.training==True:
             if self.transform:

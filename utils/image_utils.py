@@ -4,8 +4,8 @@ import numpy as np
 from glob import glob
 import matplotlib.pyplot as plt
 
-# from utils.json_utils import get_classes
-from json_utils import get_classes
+from utils.json_utils import get_classes
+# from json_utils import get_classes
 
 
 def get_image_names(root: str, fs : dict):

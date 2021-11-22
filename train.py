@@ -15,7 +15,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default='./data', help='path to your dataset')
+    parser.add_argument('--data', type=str, required=True, help='path to your dataset')
+    parser.add_argument('--meta', type=str, required=True, help='path to your metadata')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
     parser.add_argument('--batch', type=int, default=1, help='batch size')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
@@ -34,12 +35,14 @@ if __name__ == '__main__':
     blurriness = transforms.GaussianBlur(3, sigma=(0.1, 2.0))
 
     t = transforms.Compose([color_shift, blurriness])
-    dataset = segDataset(args.data, training = True, transform= t)
+    dataset = segDataset(args.data, args.meta, training = True, transform= t)
+    n_classes = len(dataset.bin_classes)+1
 
     print('Number of data : '+ str(len(dataset)))
 
     test_num = int(0.1 * len(dataset))
-    print(f'test data : {test_num}')
+    print(f'Test data : {test_num}')
+    print(f"Number of classes : {n_classes}")
     # train_dataset, test_dataset = torch.utils.data.random_split(dataset, [len(dataset)-test_num, test_num], generator=torch.Generator().manual_seed(101))
     train_dataset, test_dataset = dataset, dataset
     N_DATA, N_TEST = len(train_dataset), len(test_dataset)
@@ -50,14 +53,14 @@ if __name__ == '__main__':
     if args.loss == 'focalloss':
         criterion = FocalLoss(gamma=3/4).to(device)
     elif args.loss == 'iouloss':
-        criterion = mIoULoss(n_classes=6).to(device)
+        criterion = mIoULoss(n_classes=n_classes).to(device)
     elif args.loss == 'crossentropy':
         criterion = nn.CrossEntropyLoss().to(device)
     else:
         print('Loss function not found!')
 
 
-    model = UNet(n_channels=3, n_classes=6, bilinear=True).to(device)
+    model = UNet(n_channels=3, n_classes=n_classes, bilinear=True).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
     lr_scheduler = torch.optim.lr_scheduler.StepLR(optimizer, step_size=1, gamma=0.5)
     min_loss = torch.tensor(float('inf'))
