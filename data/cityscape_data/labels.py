@@ -187,8 +187,10 @@ if __name__ == "__main__":
     classes = []
     for label in labels : 
         classes.append({
+            "id" : label.id,
             "title" : label.name,
-            "color" : '#%02x%02x%02x' % label.color
+            "color" : '#%02x%02x%02x' % label.color,
+            "category" : label.category
         })
     
     d["classes"] = classes
