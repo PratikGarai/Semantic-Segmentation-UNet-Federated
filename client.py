@@ -2,6 +2,8 @@ import numpy as np
 import sys
 import argparse
 from collections import OrderedDict
+import os
+import matplotlib.pyplot as plt
 
 import torch
 from torch import nn
@@ -20,8 +22,9 @@ def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, required=True, help='path to your dataset')
     parser.add_argument('--meta', type=str, required=True, help='path to your metadata')
+    parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
-    parser.add_argument('--batch', type=int, default=4, help='batch size')
+    parser.add_argument('--batch', type=int, default=1, help='batch size')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
     return parser.parse_args()
 
@@ -68,6 +71,7 @@ if __name__ == '__main__':
     min_loss = torch.tensor(float('inf'))
 
     scheduler_counter = 0
+    round = 0
 
     class UNetClient(fl.client.NumPyClient):
 
@@ -96,7 +100,11 @@ if __name__ == '__main__':
         def fit(self, parameters, config):
             print("Fiting started on Client...")
             self.set_parameters(parameters)
-            global scheduler_counter
+            global scheduler_counter, round
+
+            os.makedirs('./saved_models', exist_ok=True)
+
+            plot_losses = []
 
             for epoch in range(N_EPOCHS):
                 model.train()
@@ -124,11 +132,20 @@ if __name__ == '__main__':
                             np.mean(loss_list),
                         )
                     )
-                    break
                 scheduler_counter += 1
-
+                torch.save(model.state_dict(), './saved_models/{}_{}_epoch_{}_{:.5f}.pt'.format(args.name,round,epoch,np.mean(loss_list)))
+                plot_losses.append([epoch, np.mean(loss_list)])
                 print(' epoch {} - loss : {:.5f} - acc : {:.2f}'.format(epoch, np.mean(loss_list), np.mean(acc_list)))
             
+            plot_losses = np.array(plot_losses)
+            plt.figure(figsize=(12,8))
+            plt.plot(plot_losses[:,0], plot_losses[:,1], color='b', linewidth=4)
+            plt.title(args.loss, fontsize=20)
+            plt.xlabel('epoch',fontsize=20)
+            plt.ylabel('loss',fontsize=20)
+            plt.grid()
+            plt.savefig(f'loss_plots_{args.name}_{round}.png')
+            round += 1
             return self.get_parameters(), len(train_dataloader), {}
 
         def evaluate(self, parameters, config):

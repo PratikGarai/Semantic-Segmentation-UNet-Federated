@@ -11,12 +11,13 @@ from losses import FocalLoss, mIoULoss
 from model import UNet
 from dataloader import segDataset
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cuda")
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, required=True, help='path to your dataset')
     parser.add_argument('--meta', type=str, required=True, help='path to your metadata')
+    parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
     parser.add_argument('--batch', type=int, default=1, help='batch size')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
@@ -120,7 +121,7 @@ if __name__ == '__main__':
         if is_best == True:
             scheduler_counter = 0
             min_loss = min(compare_loss, min_loss)
-            torch.save(model.state_dict(), './saved_models/unet_epoch_{}_{:.5f}.pt'.format(epoch,np.mean(val_loss_list)))
+            torch.save(model.state_dict(), './saved_models/{}_epoch_{}_{:.5f}.pt'.format(args.name,epoch,np.mean(val_loss_list)))
         
         if scheduler_counter > 5:
             lr_scheduler.step()

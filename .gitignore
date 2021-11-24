@@ -1,7 +1,9 @@
 __pycache__
 tmp*.*
-loss_plots.png
+loss_plots*.png
 saved_models
 Image/
 Mask/
 cityscape_data
+client*.txt
+server.txt
