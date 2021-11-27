@@ -25,6 +25,7 @@ def get_args():
     parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
     parser.add_argument('--batch', type=int, default=1, help='batch size')
+    parser.add_argument('--save_step', type=int, default=1, help='epochs to skip')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
     return parser.parse_args()
 
@@ -105,6 +106,7 @@ if __name__ == '__main__':
             os.makedirs('./saved_models', exist_ok=True)
 
             plot_losses = []
+            plot_accuracies = []
 
             for epoch in range(N_EPOCHS):
                 model.train()
@@ -133,11 +135,16 @@ if __name__ == '__main__':
                         )
                     )
                 scheduler_counter += 1
-                torch.save(model.state_dict(), './saved_models/{}_{}_epoch_{}_{:.5f}.pt'.format(args.name,round,epoch,np.mean(loss_list)))
+
+                if (epoch+1)%args.save_step == 0 :
+                    torch.save(model.state_dict(), './saved_models/{}_{}_epoch_{}_{:.5f}.pt'.format(args.name,round,epoch,np.mean(loss_list)))
                 plot_losses.append([epoch, np.mean(loss_list)])
+                plot_accuracies.append([epoch, np.mean(acc_list)])
                 print(' epoch {} - loss : {:.5f} - acc : {:.2f}'.format(epoch, np.mean(loss_list), np.mean(acc_list)))
             
             plot_losses = np.array(plot_losses)
+            plot_accuracies = np.array(plot_accuracies)
+
             plt.figure(figsize=(12,8))
             plt.plot(plot_losses[:,0], plot_losses[:,1], color='b', linewidth=4)
             plt.title(args.loss, fontsize=20)
@@ -145,6 +152,15 @@ if __name__ == '__main__':
             plt.ylabel('loss',fontsize=20)
             plt.grid()
             plt.savefig(f'loss_plots_{args.name}_{round}.png')
+
+            plt.figure(figsize=(12,8))
+            plt.plot(plot_accuracies[:,0], plot_accuracies[:,1], color='b', linewidth=4)
+            plt.title("accuracy", fontsize=20)
+            plt.xlabel('epoch',fontsize=20)
+            plt.ylabel('accuracy',fontsize=20)
+            plt.grid()
+            plt.savefig(f'accuracy_plots_{args.name}_{round}.png')
+            
             round += 1
             return self.get_parameters(), len(train_dataloader), {}
 
