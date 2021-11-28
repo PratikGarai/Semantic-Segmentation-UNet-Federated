@@ -25,7 +25,7 @@ def get_args():
     parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
     parser.add_argument('--batch', type=int, default=1, help='batch size')
-    parser.add_argument('--save_step', type=int, default=1, help='epochs to skip')
+    parser.add_argument('--save_step', type=int, default=5, help='epochs to skip')
     parser.add_argument('--loss', type=str, default='focalloss', help='focalloss | iouloss | crossentropy')
     return parser.parse_args()
 
@@ -160,7 +160,7 @@ if __name__ == '__main__':
             plt.ylabel('accuracy',fontsize=20)
             plt.grid()
             plt.savefig(f'accuracy_plots_{args.name}_{round}.png')
-            
+
             round += 1
             return self.get_parameters(), len(train_dataloader), {}
 
