@@ -178,21 +178,6 @@ if __name__ == '__main__':
                 val_acc_list.append(acc(y,pred_mask).numpy())
                 
             print(' val loss : {:.5f} - val acc : {:.2f}'.format(np.mean(val_loss_list), np.mean(val_acc_list)))
-
-            global min_loss
-            compare_loss = np.mean(val_loss_list)
-            is_best = compare_loss < min_loss
-
-            if is_best == True:
-                scheduler_counter = 0
-                min_loss = min(compare_loss, min_loss)
-                # torch.save(model.state_dict(), './saved_models/unet_epoch_{}_{:.5f}.pt'.format(epoch,np.mean(val_loss_list)))
-            
-            if scheduler_counter > 5:
-                lr_scheduler.step()
-                print(f"lowering learning rate to {optimizer.param_groups[0]['lr']}")
-                scheduler_counter = 0
-
             return np.mean(val_loss_list).item(), len(test_dataloader), {"accuracy":np.mean(val_acc_list).item()}
         
     fl.client.start_numpy_client(
