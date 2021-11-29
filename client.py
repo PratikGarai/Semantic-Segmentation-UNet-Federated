@@ -20,7 +20,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, required=True, help='path to your dataset')
+    parser.add_argument('--data', type=str, required=True, help='path to your train dataset')
+    parser.add_argument('--test', type=str, help='path to your test dataset')
     parser.add_argument('--meta', type=str, required=True, help='path to your metadata')
     parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
