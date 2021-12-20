@@ -35,15 +35,15 @@ python server.py > server.txt
 ### Federated Clients (CityScape)
 
 ```sh
-python client.py --data data/CityScape-Dataset/Train/C1-Vehicle_NoPeople-65 --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client1 > client1.txt
+python client.py --data data/CityScape-Dataset/Train/C1-Vehicle_NoPeople-65 --test data/CityScape-Dataset/Test --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client1 > client1.txt
 ```
 
 ```sh
-python client.py --data data/CityScape-Dataset/Train/C2-People_NoVehicle-22 --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client2 > client2.txt
+python client.py --data data/CityScape-Dataset/Train/C2-People_NoVehicle-22 --test data/CityScape-Dataset/Test --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client2 > client2.txt
 ```
 
 ```sh
-python client.py --data data/CityScape-Dataset/Train/C3-NoVehicle_NoPeople-11 --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client3 > client3.txt
+python client.py --data data/CityScape-Dataset/Train/C3-NoVehicle_NoPeople-11 --test data/CityScape-Dataset/Test --meta data/CityScape-Dataset --num_epochs 50 --loss crossentropy --name client3 > client3.txt
 ```
 ### Federated Clients (Chennai)
 
