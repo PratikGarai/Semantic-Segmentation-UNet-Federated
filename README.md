@@ -17,7 +17,7 @@ sh getCityScape.sh
 sh getChennaiData.sh
 ```
 
-## Testing commands 
+## Federated Testing commands 
 
 
 ### Inference Testing
@@ -58,3 +58,7 @@ python client.py --data data/Chennai-Dataset/Train/D2 --meta data/Chennai-Datase
 ```sh
 python client.py --data data/Chennai-Dataset/Train/D3 --meta data/Chennai-Dataset --test data/Chennai-Dataset/Test/T3 --num_epochs 50 --loss crossentropy --name clientCHN3 > clientCHN3.txt
 ```
+
+## Unified Testing commands
+
+## Unified Testing on Chennai Dataset
