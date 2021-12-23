@@ -65,7 +65,7 @@ if __name__ == '__main__':
         print(f"Number of classes : {n_classes}")
         N_DATA, N_TEST = len(dataset), len(dataset2)
         train_dataloader = torch.utils.data.DataLoader(dataset, batch_size=BACH_SIZE, shuffle=True, num_workers=2)
-        test_dataloader = torch.utils.data.DataLoader(dataset, batch_size=BACH_SIZE, shuffle=False, num_workers=1)
+        test_dataloader = torch.utils.data.DataLoader(dataset2, batch_size=BACH_SIZE, shuffle=False, num_workers=1)
 
     if args.loss == 'focalloss':
         criterion = FocalLoss(gamma=3/4).to(device)

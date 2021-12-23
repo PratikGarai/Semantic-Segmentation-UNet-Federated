@@ -11,11 +11,12 @@ from losses import FocalLoss, mIoULoss
 from model import UNet
 from dataloader import segDataset
 
-device = torch.device("cuda")
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 def get_args():
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, required=True, help='path to your dataset')
+    parser.add_argument('--test', type=str, help='path to your test dataset')
     parser.add_argument('--meta', type=str, required=True, help='path to your metadata')
     parser.add_argument('--name', type=str, default="unet", help='name to be appended to checkpoints')
     parser.add_argument('--num_epochs', type=int, default=100, help='dnumber of epochs')
@@ -41,14 +42,28 @@ if __name__ == '__main__':
 
     print('Number of data : '+ str(len(dataset)))
 
-    test_num = int(0.1 * len(dataset))
-    print(f'Test data : {test_num}')
-    print(f"Number of classes : {n_classes}")
-    train_dataset, test_dataset = dataset, dataset
-    N_DATA, N_TEST = len(train_dataset), len(test_dataset)
-
-    train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BACH_SIZE, shuffle=True, num_workers=2)
-    test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=BACH_SIZE, shuffle=False, num_workers=1)
+    if not args.test : 
+        dataset = segDataset(args.data, args.meta, training = True, transform= t)
+        n_classes = len(dataset.bin_classes)+1
+        print('Number of data : '+ str(len(dataset)))
+        test_num = int(0.1 * len(dataset))
+        print(f'Test data : {test_num}')
+        print(f"Number of classes : {n_classes}")
+        train_dataset, test_dataset = torch.utils.data.random_split(dataset, [len(dataset)-test_num, test_num], generator=torch.Generator().manual_seed(101))
+        N_DATA, N_TEST = len(train_dataset), len(test_dataset)
+        train_dataloader = torch.utils.data.DataLoader(train_dataset, batch_size=BACH_SIZE, shuffle=True, num_workers=2)
+        test_dataloader = torch.utils.data.DataLoader(test_dataset, batch_size=BACH_SIZE, shuffle=False, num_workers=1)
+    else :
+        dataset = segDataset(args.data, args.meta, training = True, transform= t)
+        dataset2 = segDataset(args.test, args.meta, training = False, transform= t)
+        n_classes = len(dataset.bin_classes)+1
+        print('Number of train data : '+ str(len(dataset)))
+        test_num = len(dataset2)
+        print(f'Test data : {test_num}')
+        print(f"Number of classes : {n_classes}")
+        N_DATA, N_TEST = len(dataset), len(dataset2)
+        train_dataloader = torch.utils.data.DataLoader(dataset, batch_size=BACH_SIZE, shuffle=True, num_workers=2)
+        test_dataloader = torch.utils.data.DataLoader(dataset2, batch_size=BACH_SIZE, shuffle=False, num_workers=1)
 
     if args.loss == 'focalloss':
         criterion = FocalLoss(gamma=3/4).to(device)
