@@ -7,3 +7,5 @@ Mask/
 cityscape_data
 data
 *.txt
+
+!Plotter/DataExamples/*.txt
