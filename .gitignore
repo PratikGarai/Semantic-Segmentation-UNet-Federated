@@ -9,3 +9,4 @@ data
 *.txt
 
 !Plotter/DataExamples/*.txt
+Plotter/*.pkl
