@@ -1,5 +1,6 @@
 import pickle
 import re
+import matplotlib.pyplot as plt
 
 REG = "epoch [0-9]+ - loss \: ([0-9]+\.[0-9]+) \- acc \: ([0-9]+\.[0-9]+)"
 
@@ -46,8 +47,8 @@ class FederatedData :
             results = re.search(REG, line)
             if results : 
                 loss, acc = results.groups()
-                l.append(loss)
-                a.append(acc)
+                l.append(float(loss))
+                a.append(float(acc))
         self.losses.append(l)
         self.accuracies.append(a)
         self.round_counts.append(len(l))
@@ -61,5 +62,17 @@ class FederatedData :
         for i in range(self.n_rounds) :
             s += f"Acc  : , {str(self.accuracies[i])}\n"
             s += f"Loss : , {str(self.losses[i])}\n"
-        
         return s
+
+
+    def plot_all_round_loss_in_one_graph(self) :
+        for i in range(self.n_rounds) :
+            plt.plot(self.losses[i], label=f"Round : {i+1}")
+        plt.legend()
+        plt.show()
+    
+
+    def plot_one_round_loss_in_one_graph(self, n : int) :
+        plt.plot(self.losses[n], label=f"Round : {n}")
+        plt.legend()
+        plt.show()

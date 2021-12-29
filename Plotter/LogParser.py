@@ -4,7 +4,6 @@ from DataModels import FederatedData
 def parse(args : ArgumentParser) :
     f = FederatedData()
     f.read_file(args.file, args.sep)
-    print(f.stringify())
 
 if __name__=="__main__":
     parser = ArgumentParser(description="Convert a federated training log to pkl format")
