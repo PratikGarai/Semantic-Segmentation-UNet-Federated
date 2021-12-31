@@ -61,10 +61,14 @@ python client.py --data data/Chennai-Dataset/Train/D3 --meta data/Chennai-Datase
 
 ## Unified Testing commands
 
-## Unified Testing on CityScape Dataset
+### Unified Testing on CityScape Dataset
 
+```sh
 python train.py --data data/CityScape-Dataset-Unified/Train --test data/CityScape-Dataset-Unified/Test --meta data/CityScape-Dataset-Unified --num_epochs 50 --loss crossentropy --name UnifiedCSP > UnifiedCSP.txt
+```
 
-## Unified Testing on Chennai Dataset
+### Unified Testing on Chennai Dataset
 
+```sh 
 python train.py --data data/Chennai-Dataset-Unified/Train --meta data/Chennai-Dataset-Unified --test data/Chennai-Dataset-Unified/Test --num_epochs 50 --loss crossentropy --name UnifiedCHN > UnifiedCHN.txt
+```
