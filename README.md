@@ -4,17 +4,10 @@
 
 This repo has the code to train and test U-Net for Semantic Segmentation task over images. Contains both conventional as well as Federated Traning using FedAvg algorithm in Flower framework.
 
-## Getting Dataset
-
-### Dataset 1
+## Getting Datasets
 
 ```sh
-sh getCityScape.sh
-```
-
-### Dataset 2
-```sh
-sh getChennaiData.sh
+sh getAllData.sh
 ```
 
 ## Federated Testing commands 
