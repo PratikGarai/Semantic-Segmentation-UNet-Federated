@@ -22,7 +22,7 @@ class FederatedData :
 
     def load(self, filename : str) :
         fl = open(filename+".pkl", "rb")
-        ob : FederatedData = pickle.load(fl, pickle.HIGHEST_PROTOCOL)
+        ob : FederatedData = pickle.load(fl)
         self.n_rounds = ob.n_rounds
         self.losses = ob.losses
         self.accuracies = ob.accuracies 
@@ -98,7 +98,7 @@ class UnifiedData :
 
     def load(self, filename : str) :
         fl = open(filename+".pkl", "rb")
-        ob : UnifiedData = pickle.load(fl, pickle.HIGHEST_PROTOCOL)
+        ob : UnifiedData = pickle.load(fl)
         self.losses = ob.losses
         self.accuracies = ob.accuracies 
         self.val_losses = ob.val_losses
