@@ -103,9 +103,7 @@ class UnifiedData :
         fl.close()
     
 
-    def read_file(self, filename : str, sep : str) :
-        if not sep : 
-            raise Exception("No seperator in Federated mode")
+    def read_file(self, filename : str) :
         fl = open(filename, "r")
         l = []
         a = []
@@ -115,9 +113,8 @@ class UnifiedData :
                 loss, acc = results.groups()
                 l.append(float(loss))
                 a.append(float(acc))
-        self.losses.append(l)
-        self.accuracies.append(a)
-        self.round_counts.append(len(l))
+        self.losses = l
+        self.accuracies = a
         fl.close()
     
 
