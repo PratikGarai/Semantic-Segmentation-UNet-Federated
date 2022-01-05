@@ -76,3 +76,66 @@ class FederatedData :
         plt.plot(self.losses[n], label=f"Round : {n}")
         plt.legend()
         plt.show()
+
+
+
+class UnifiedData : 
+
+    def __init__(self) :
+        self.losses : list = []
+        self.accuracies : list = []
+        self.epochs : list = []
+    
+
+    def save(self, filename : str) :
+        fl = open(filename+".pkl", "wb")
+        pickle.dump(self, fl, pickle.HIGHEST_PROTOCOL)
+        fl.close()
+    
+
+    def load(self, filename : str) :
+        fl = open(filename+".pkl", "rb")
+        ob : FederatedData = pickle.load(fl, pickle.HIGHEST_PROTOCOL)
+        self.n_rounds = ob.n_rounds
+        self.losses = ob.losses
+        self.accuracies = ob.accuracies 
+        self.round_counts = ob.round_counts
+        fl.close()
+    
+
+    def read_file(self, filename : str, sep : str) :
+        if not sep : 
+            raise Exception("No seperator in Federated mode")
+        fl = open(filename, "r")
+        l = []
+        a = []
+        for line in fl :
+            results = re.search(REG, line)
+            if results : 
+                loss, acc = results.groups()
+                l.append(float(loss))
+                a.append(float(acc))
+        self.losses.append(l)
+        self.accuracies.append(a)
+        self.round_counts.append(len(l))
+        fl.close()
+    
+
+    def stringify(self) :
+        s = ""
+        s += f"Epochs         : {self.epochs}\n"
+        s += f"Acc  : , {str(self.accuracies)}\n"
+        s += f"Loss : , {str(self.losses)}\n"
+        return s
+
+
+    def plot_losses(self) :
+        plt.plot(self.losses, label="Loss")
+        plt.legend()
+        plt.show()
+    
+
+    def plot_accuracy(self) :
+        plt.plot(self.accuracies, label=f"Accuracy")
+        plt.legend()
+        plt.show()
