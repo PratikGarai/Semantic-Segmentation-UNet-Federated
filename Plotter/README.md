@@ -17,5 +17,5 @@ python LogParserUnified.py --file DataExamples\UnifiedCHN.txt --name CHN
 ```
 
 ```sh
-python PlotterDriver.py --name1 CHN1 --name2 CHN2 --name3 CHN3 --nameU CHN
+python PlotterDriver.py --name1 CHN1 --name2 CHN2 --name3 CHN3 --nameU CHN --savedir CHN
 ```

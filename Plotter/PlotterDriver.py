@@ -1,13 +1,17 @@
 import matplotlib.pyplot as plt
 from argparse import ArgumentParser
 from DataModels import FederatedData, UnifiedData
+import os
 
-def plot_together(data_dict : dict, title : str) :
+
+def plot_together(data_dict : dict, title : str, dir : str) :
     for label, data in data_dict.items() :
         plt.plot(data, label=label)
     plt.title(title)
     plt.legend()
-    plt.show()
+    if not os.path.exists(dir+"\\") :
+        os.mkdir(dir+"\\")
+    plt.savefig(dir+"\\"+title+".png")
 
 
 def plot(args : ArgumentParser) :
@@ -29,7 +33,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[0],
         "Client 3" : f3.losses[0],
         "Unified " : u.val_losses,
-    }, "Val Loss - Round 1")
+    }, "Val Loss - Round 1", args.savedir)
 
     # Plot 2
     # ===============================================
@@ -40,7 +44,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[1],
         "Client 3" : f3.losses[1],
         "Unified " : u.val_losses,
-    }, "Val Loss - Round 2")
+    }, "Val Loss - Round 2", args.savedir)
 
     # Plot 3
     # ===============================================
@@ -51,7 +55,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[2],
         "Client 3" : f3.losses[2],
         "Unified " : u.val_losses,
-    }, "Val Loss - Round 3")
+    }, "Val Loss - Round 3", args.savedir)
 
     # Plot 4
     # ===============================================
@@ -62,7 +66,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[0],
         "Client 3" : f3.losses[0],
         "Unified " : u.losses,
-    }, "Loss - Round 1")
+    }, "Loss - Round 1", args.savedir)
 
     # Plot 5
     # ===============================================
@@ -73,7 +77,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[1],
         "Client 3" : f3.losses[1],
         "Unified " : u.losses,
-    }, "Loss - Round 2")
+    }, "Loss - Round 2", args.savedir)
 
     # Plot 6
     # ===============================================
@@ -84,7 +88,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.losses[2],
         "Client 3" : f3.losses[2],
         "Unified " : u.losses,
-    }, "Loss - Round 3")
+    }, "Loss - Round 3", args.savedir)
 
     # Plot 7
     # ===============================================
@@ -95,7 +99,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[0],
         "Client 3" : f3.accuracies[0],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Round 1")
+    }, "Val Acc - Round 1", args.savedir)
 
     # Plot 8
     # ===============================================
@@ -106,7 +110,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[1],
         "Client 3" : f3.accuracies[1],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Round 2")
+    }, "Val Acc - Round 2", args.savedir)
 
     # Plot 9
     # ===============================================
@@ -117,7 +121,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[2],
         "Client 3" : f3.accuracies[2],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Round 3")
+    }, "Val Acc - Round 3", args.savedir)
 
     # Plot 10
     # ===============================================
@@ -128,7 +132,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[0],
         "Client 3" : f3.accuracies[0],
         "Unified " : u.accuracies,
-    }, "Acc - Round 1")
+    }, "Acc - Round 1", args.savedir)
 
     # Plot 11
     # ===============================================
@@ -139,7 +143,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[1],
         "Client 3" : f3.accuracies[1],
         "Unified " : u.accuracies,
-    }, "Acc - Round 2")
+    }, "Acc - Round 2", args.savedir)
 
     # Plot 12
     # ===============================================
@@ -150,7 +154,7 @@ def plot(args : ArgumentParser) :
         "Client 2" : f2.accuracies[2],
         "Client 3" : f3.accuracies[2],
         "Unified " : u.accuracies,
-    }, "Acc - Round 3")
+    }, "Acc - Round 3", args.savedir)
     
     # Plot 13
     # ===============================================
@@ -161,7 +165,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f1.losses[1],
         "Round 3" : f1.losses[2],
         "Unified " : u.val_losses,
-    }, "Val Loss - Client 1 vs Unified")
+    }, "Val Loss - Client 1 vs Unified", args.savedir)
 
     # Plot 14
     # ===============================================
@@ -172,7 +176,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f2.losses[1],
         "Round 3" : f2.losses[2],
         "Unified " : u.val_losses,
-    }, "Val Loss - Client 2 vs Unified")
+    }, "Val Loss - Client 2 vs Unified", args.savedir)
 
     # Plot 15
     # ===============================================
@@ -183,7 +187,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f3.losses[1],
         "Round 3" : f3.losses[2],
         "Unified " : u.val_losses,
-    }, "Val Loss - Client 3 vs Unified")
+    }, "Val Loss - Client 3 vs Unified", args.savedir)
 
     # Plot 16
     # ===============================================
@@ -194,7 +198,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f1.losses[1],
         "Round 3" : f1.losses[2],
         "Unified " : u.losses,
-    }, "Loss - Client 1 vs Unified")
+    }, "Loss - Client 1 vs Unified", args.savedir)
 
     # Plot 17
     # ===============================================
@@ -205,7 +209,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f2.losses[1],
         "Round 3" : f2.losses[2],
         "Unified " : u.losses,
-    }, "Loss - Client 2 vs Unified")
+    }, "Loss - Client 2 vs Unified", args.savedir)
 
     # Plot 18
     # ===============================================
@@ -216,7 +220,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f3.losses[1],
         "Round 3" : f3.losses[2],
         "Unified " : u.losses,
-    }, "Loss - Client 3 vs Unified")
+    }, "Loss - Client 3 vs Unified", args.savedir)
     
     # Plot 19
     # ===============================================
@@ -227,7 +231,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f1.accuracies[1],
         "Round 3" : f1.accuracies[2],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Client 1 vs Unified")
+    }, "Val Acc - Client 1 vs Unified", args.savedir)
 
     # Plot 20
     # ===============================================
@@ -238,7 +242,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f2.accuracies[1],
         "Round 3" : f2.accuracies[2],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Client 2 vs Unified")
+    }, "Val Acc - Client 2 vs Unified", args.savedir)
 
     # Plot 21
     # ===============================================
@@ -249,7 +253,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f3.accuracies[1],
         "Round 3" : f3.accuracies[2],
         "Unified " : u.val_accuracies,
-    }, "Val Acc - Client 3 vs Unified")
+    }, "Val Acc - Client 3 vs Unified", args.savedir)
 
     # Plot 22
     # ===============================================
@@ -260,7 +264,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f1.accuracies[1],
         "Round 3" : f1.accuracies[2],
         "Unified " : u.accuracies,
-    }, "Acc - Client 1 vs Unified")
+    }, "Acc - Client 1 vs Unified", args.savedir)
 
     # Plot 23
     # ===============================================
@@ -271,7 +275,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f2.accuracies[1],
         "Round 3" : f2.accuracies[2],
         "Unified " : u.accuracies,
-    }, "Acc - Client 2 vs Unified")
+    }, "Acc - Client 2 vs Unified", args.savedir)
 
     # Plot 24
     # ===============================================
@@ -282,7 +286,7 @@ def plot(args : ArgumentParser) :
         "Round 2" : f3.accuracies[1],
         "Round 3" : f3.accuracies[2],
         "Unified " : u.accuracies,
-    }, "Acc - Client 3 vs Unified")
+    }, "Acc - Client 3 vs Unified", args.savedir)
 
 
 if __name__=="__main__":
@@ -291,5 +295,6 @@ if __name__=="__main__":
     parser.add_argument("--name2", type=str, required=True, help="Name of federated file 2")
     parser.add_argument("--name3", type=str, required=True, help="Name of federated file 3")
     parser.add_argument("--nameU", type=str, required=True, help="Name of unified file")
+    parser.add_argument("--savedir", type=str, required=True, help="Name of save directory plots")
     args = parser.parse_args()
     plot(args)
