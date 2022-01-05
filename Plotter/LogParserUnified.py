@@ -4,9 +4,7 @@ from DataModels import UnifiedData
 def parse(args : ArgumentParser) :
     f = UnifiedData()
     f.read_file(args.file)
-    # f.save(args.name)
-    f.plot_accuracy()
-    f.plot_losses()
+    f.save(args.name)
 
 if __name__=="__main__":
     parser = ArgumentParser(description="Convert a unified training log to pkl format")

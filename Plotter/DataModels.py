@@ -3,6 +3,7 @@ import re
 import matplotlib.pyplot as plt
 
 REG = "epoch [0-9]+ - loss \: ([0-9]+\.[0-9]+) \- acc \: ([0-9]+\.[0-9]+)"
+REG2 = "epoch [0-9]+ - loss \: ([0-9]+\.[0-9]+) \- acc \: ([0-9]+\.[0-9]+) \- val loss \: ([0-9]+\.[0-9]+) \- val acc \: ([0-9]+\.[0-9]+)"
 
 class FederatedData : 
 
@@ -84,6 +85,8 @@ class UnifiedData :
     def __init__(self) :
         self.losses : list = []
         self.accuracies : list = []
+        self.val_losses : list = []
+        self.val_accuracies : list = []
         self.epochs : list = []
     
 
@@ -95,11 +98,11 @@ class UnifiedData :
 
     def load(self, filename : str) :
         fl = open(filename+".pkl", "rb")
-        ob : FederatedData = pickle.load(fl, pickle.HIGHEST_PROTOCOL)
-        self.n_rounds = ob.n_rounds
+        ob : UnifiedData = pickle.load(fl, pickle.HIGHEST_PROTOCOL)
         self.losses = ob.losses
         self.accuracies = ob.accuracies 
-        self.round_counts = ob.round_counts
+        self.val_losses = ob.val_losses
+        self.val_accuracies = ob.val_accuracies 
         fl.close()
     
 
@@ -107,14 +110,20 @@ class UnifiedData :
         fl = open(filename, "r")
         l = []
         a = []
+        vl = []
+        va = []
         for line in fl :
-            results = re.search(REG, line)
+            results = re.search(REG2, line)
             if results : 
-                loss, acc = results.groups()
+                loss, acc, vloss, vacc = results.groups()
                 l.append(float(loss))
                 a.append(float(acc))
+                vl.append(float(vloss))
+                va.append(float(vacc))
         self.losses = l
         self.accuracies = a
+        self.val_losses = vl
+        self.val_accuracies = va
         fl.close()
     
 
@@ -134,5 +143,16 @@ class UnifiedData :
 
     def plot_accuracy(self) :
         plt.plot(self.accuracies, label=f"Accuracy")
+        plt.legend()
+        plt.show()
+
+    def plot_val_losses(self) :
+        plt.plot(self.val_losses, label="Val. Loss")
+        plt.legend()
+        plt.show()
+    
+
+    def plot_val_accuracy(self) :
+        plt.plot(self.val_accuracies, label=f"Val. Accuracy")
         plt.legend()
         plt.show()
