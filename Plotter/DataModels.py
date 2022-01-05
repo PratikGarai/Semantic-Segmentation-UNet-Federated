@@ -87,7 +87,7 @@ class UnifiedData :
         self.accuracies : list = []
         self.val_losses : list = []
         self.val_accuracies : list = []
-        self.epochs : list = []
+        self.epochs : int = 0
     
 
     def save(self, filename : str) :
@@ -120,6 +120,7 @@ class UnifiedData :
                 a.append(float(acc))
                 vl.append(float(vloss))
                 va.append(float(vacc))
+                self.epochs += 1
         self.losses = l
         self.accuracies = a
         self.val_losses = vl

@@ -12,6 +12,7 @@ def plot_together(data_dict : dict, title : str, dir : str) :
     if not os.path.exists(dir+"\\") :
         os.mkdir(dir+"\\")
     plt.savefig(dir+"\\"+title+".png")
+    plt.clf()
 
 
 def plot(args : ArgumentParser) :
