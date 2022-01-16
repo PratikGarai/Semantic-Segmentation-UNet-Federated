@@ -52,6 +52,7 @@ class KFoldTrainer:
         self.folds = args.folds
         self.epochs = args.epochs
         self.BATCH_SIZE = args.batch
+        self.min_loss = torch.tensor(float("inf"))
 
         color_shift = transforms.ColorJitter(0.1, 0.1, 0.1, 0.1)
         blurriness = transforms.GaussianBlur(3, sigma=(0.1, 2.0))
@@ -123,7 +124,6 @@ class KFoldTrainer:
             self.single_split_train(train_loader, val_loader, fold=i, epoch=epoch)
 
     def single_split_train(self, train_loader, val_loader, fold, epoch):
-        min_loss = torch.tensor(float("inf"))
         self.model.train()
         loss_list = []
         acc_list = []
