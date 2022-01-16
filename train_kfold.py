@@ -177,7 +177,7 @@ class KFoldTrainer:
         is_best = compare_loss < self.min_loss
         if is_best == True:
             self.scheduler_counter = 0
-            self.min_loss = min(compare_loss, min_loss)
+            self.min_loss = min(compare_loss, self.min_loss)
             torch.save(
                 self.model.state_dict(),
                 "./saved_models/{}_epoch_{}_{:.5f}.pt".format(
