@@ -72,10 +72,12 @@ class KFoldTrainer:
             print("Loss function not found!")
 
         if args.model == "Custom_Slim_UNet" :
+            print("Using custom slim model")
             self.model = Custom_Slim_UNet(n_channels=3, n_classes=self.n_classes, bilinear=False).to(
                 device
             )
         else :
+            print("Using unet model")
             self.model = UNet(n_channels=3, n_classes=self.n_classes, bilinear=True).to(
                 device
             )
