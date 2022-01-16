@@ -65,3 +65,8 @@ python train.py --data data/CityScape-Dataset-Unified/Train --test data/CityScap
 ```sh 
 python train.py --data data/Chennai-Dataset-Unified/Train --meta data/Chennai-Dataset-Unified --test data/Chennai-Dataset-Unified/Test --num_epochs 50 --loss crossentropy --name UnifiedCHN > UnifiedCHN.txt
 ```
+## KFold commands
+
+```sh
+python train_kfold.py --data data/Chennai-Dataset-KFold/ --meta data/Chennai-Dataset-KFold/ --name ChennaiKFold --folds 5 --epochs 10 --batch 2 --loss crossentropy --model Custom_Slim_UNet > UnifiedCHNFolded.txt
+```
