@@ -48,6 +48,7 @@ def acc(y, pred_mask):
 
 class KFoldTrainer:
     def __init__(self, args):
+        self.args = args
         self.folds = args.folds
         self.epochs = args.epochs
         self.BATCH_SIZE = args.batch
