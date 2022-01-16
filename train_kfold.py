@@ -112,10 +112,10 @@ class KFoldTrainer:
             val_set = torch.utils.data.dataset.Subset(self.dataset, val_indices)
 
             train_loader = torch.utils.data.DataLoader(
-                train_set, batch_size=50, shuffle=True, num_workers=1
+                train_set, batch_size=self.args.batch, shuffle=True, num_workers=1
             )
             val_loader = torch.utils.data.DataLoader(
-                val_set, batch_size=50, shuffle=True, num_workers=1
+                val_set, batch_size=self.args.batch, shuffle=True, num_workers=1
             )
             self.single_split_train(train_loader, val_loader, fold=i, epoch=epoch)
 
