@@ -9,7 +9,7 @@ import torchvision.transforms as transforms
 import pandas as pd
 
 from losses import FocalLoss, mIoULoss
-from model import UNet
+from model import Custom_Slim_UNet, UNet
 from dataloader import segDataset
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -30,6 +30,12 @@ def get_args():
         type=str,
         default="focalloss",
         help="focalloss | iouloss | crossentropy",
+    )
+    parser.add_argument(
+        "--model",
+        type=str,
+        default="UNet",
+        help="UNet | Custom_Slim_UNet",
     )
     return parser.parse_args()
 
@@ -65,16 +71,20 @@ class KFoldTrainer:
         else:
             print("Loss function not found!")
 
-        self.model = UNet(n_channels=3, n_classes=self.n_classes, bilinear=True).to(
-            device
-        )
+        if args.model == "Custom_Slim_UNet" :
+            self.model = Custom_Slim_UNet(n_channels=3, n_classes=self.n_classes, bilinear=True).to(
+                device
+            )
+        else :
+            self.model = UNet(n_channels=3, n_classes=self.n_classes, bilinear=True).to(
+                device
+            )
         self.optimizer = torch.optim.Adam(self.model.parameters(), lr=1e-3)
         self.lr_scheduler = torch.optim.lr_scheduler.StepLR(
             self.optimizer, step_size=1, gamma=0.5
         )
         self.scheduler_counter = 0
         self.epoch = 0
-
         os.makedirs("./saved_models", exist_ok=True)
 
     def train(self):
