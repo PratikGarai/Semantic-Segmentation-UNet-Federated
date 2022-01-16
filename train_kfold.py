@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import torch
 from torch import nn
 import torchvision.transforms as transforms
-import pandas as pd
 
 from losses import FocalLoss, mIoULoss
 from model import Custom_Slim_UNet, UNet
@@ -22,8 +21,8 @@ def get_args():
     parser.add_argument(
         "--name", type=str, default="unet", help="name to be appended to checkpoints"
     )
-    parser.add_argument("--folds", type=int, default=100, help="number of folds")
-    parser.add_argument("--epochs", type=int, default=100, help="number of epochs")
+    parser.add_argument("--folds", type=int, default=5, help="number of folds")
+    parser.add_argument("--epochs", type=int, default=10, help="number of epochs")
     parser.add_argument("--batch", type=int, default=1, help="batch size")
     parser.add_argument(
         "--loss",
