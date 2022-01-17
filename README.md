@@ -70,7 +70,11 @@ python train.py --data data/Chennai-Dataset-Unified/Train --meta data/Chennai-Da
 ### Chennai Dataset
 
 ```sh
-python train_kfold.py --data data/Chennai-Dataset-KFold/ --meta data/Chennai-Dataset-KFold/ --name ChennaiKFold --folds 5 --epochs 10 --batch 2 --loss crossentropy --model Custom_Slim_UNet > UnifiedCHNFolded.txt
+python train_kfold.py --data data/Chennai-Dataset-KFold/ --meta data/Chennai-Dataset-KFold/ --name ChennaiKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCHNFolded.txt
 ```
 
 ### Cityscape Dataset
+
+```sh
+python train_kfold.py --data data/CityScape-Dataset-KFold/ --meta data/CityScape-Dataset-KFold/ --name CityScapeKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCSPFolded.txt
+```

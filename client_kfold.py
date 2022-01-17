@@ -18,6 +18,7 @@ from dataloader import segDataset
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+rounds = 0
 
 def get_args():
     parser = argparse.ArgumentParser()
@@ -127,6 +128,7 @@ class KFoldTrainer:
             )
             self.single_split_train(train_loader, val_loader, fold=i, epoch=epoch)
 
+
     def single_split_train(self, train_loader, val_loader, fold, epoch):
         self.model.train()
         loss_list = []
@@ -165,9 +167,11 @@ class KFoldTrainer:
             val_loss = self.criterion(pred_mask, y.to(device))
             val_loss_list.append(val_loss.cpu().detach().numpy())
             val_acc_list.append(acc(y, pred_mask).numpy())
-
+        
+        global round
         print(
-            " epoch {} - fold {} - loss : {:.5f} - acc : {:.2f} - val loss : {:.5f} - val acc : {:.2f}".format(
+            "round {} - epoch {} - fold {} - loss : {:.5f} - acc : {:.2f} - val loss : {:.5f} - val acc : {:.2f}".format(
+                round,
                 epoch,
                 fold,
                 np.mean(loss_list),
@@ -231,7 +235,10 @@ class UNetClient(fl.client.NumPyClient):
 
     def fit(self, parameters, config):
         print("Fiting started on Client...")
+        global round
         self.set_parameters(parameters)
+        self.t.train()
+        round += 1
         return self.get_parameters(), len(self.t.dataset), {}
 
     def evaluate(self, parameters, config):

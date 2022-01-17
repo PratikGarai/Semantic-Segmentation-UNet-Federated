@@ -12,3 +12,5 @@ gdown https://drive.google.com/uc?id=1Q9NDeex5XJrCzVseXnYNfuj3HBmyaF4c
 unzip CityScape-Dataset-Unified.zip -d ./data
 gdown https://drive.google.com/uc?id=1uv60hVJPYJ3SCo9FaBpIpIXWHinhiinQ
 unzip Chennai-Dataset-KFold.zip -d ./data
+gdown https://drive.google.com/uc?id=1AM4dLscujytGpn9e_kFW3pinRkL72CSY
+unzip CityScape-Dataset-KFold.zip -d ./data
