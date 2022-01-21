@@ -168,10 +168,10 @@ class KFoldTrainer:
             val_loss_list.append(val_loss.cpu().detach().numpy())
             val_acc_list.append(acc(y, pred_mask).numpy())
         
-        global round
+        global rounds
         print(
             "round {} - epoch {} - fold {} - loss : {:.5f} - acc : {:.2f} - val loss : {:.5f} - val acc : {:.2f}".format(
-                round,
+                rounds,
                 epoch,
                 fold,
                 np.mean(loss_list),
@@ -208,13 +208,13 @@ class UNetClient(fl.client.NumPyClient):
         super().__init__()
 
     def get_parameters(self):
-        return [val.cpu().numpy() for _, val in self.model.state_dict().items()]
+        return [val.cpu().numpy() for _, val in self.t.model.state_dict().items()]
 
     def set_parameters(self, parameters):
         params_dict = zip(self.t.model.state_dict().keys(), parameters)
         state_dict = OrderedDict({k: torch.tensor(v) for k, v in params_dict})
 
-        it1 = self.model.state_dict().items()
+        it1 = self.t.model.state_dict().items()
         it2 = state_dict.items()
 
         l1 = len(it1)
@@ -235,30 +235,30 @@ class UNetClient(fl.client.NumPyClient):
 
     def fit(self, parameters, config):
         print("Fiting started on Client...")
-        global round
+        global rounds
         self.set_parameters(parameters)
         self.t.train()
-        round += 1
+        rounds += 1
         return self.get_parameters(), len(self.t.dataset), {}
 
     def evaluate(self, parameters, config):
         print("Evaluation started on Client...")
         self.set_parameters(parameters)
-        self.t.model.eval()
-        val_loss_list = []
-        val_acc_list = []
-        for batch_i, (x, y) in enumerate(self.t.dataset):
-            with torch.no_grad():
-                pred_mask = self.t.model(x.to(device))
-            val_loss = self.t.criterion(pred_mask, y.to(device))
-            val_loss_list.append(val_loss.cpu().detach().numpy())
-            val_acc_list.append(acc(y, pred_mask).numpy())
+        # self.t.model.eval()
+        val_loss_list = [0]
+        val_acc_list = [0]
+        # for batch_i, (x, y) in enumerate(self.t.dataset):
+        #     with torch.no_grad():
+        #         pred_mask = self.t.model(x.to(device))
+        #     val_loss = self.t.criterion(pred_mask, y.to(device))
+        #     val_loss_list.append(val_loss.cpu().detach().numpy())
+        #     val_acc_list.append(acc(y, pred_mask).numpy())
 
-        print(
-            " val loss : {:.5f} - val acc : {:.2f}".format(
-                np.mean(val_loss_list), np.mean(val_acc_list)
-            )
-        )
+        # print(
+        #     " val loss : {:.5f} - val acc : {:.2f}".format(
+        #         np.mean(val_loss_list), np.mean(val_acc_list)
+        #     )
+        # )
         return (
             np.mean(val_loss_list).item(),
             len(self.t.dataset),

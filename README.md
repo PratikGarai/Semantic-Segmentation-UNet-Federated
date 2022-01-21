@@ -70,11 +70,41 @@ python train.py --data data/Chennai-Dataset-Unified/Train --meta data/Chennai-Da
 ### Chennai Dataset
 
 ```sh
-python client_kfold.py --data data/Chennai-Dataset-KFold/ --meta data/Chennai-Dataset-KFold/ --name ChennaiKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCHNFolded.txt
+python train_kfold.py --data data/Chennai-Dataset-KFold/ --meta data/Chennai-Dataset-KFold/ --name ChennaiKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCHNFolded.txt
 ```
 
 ### Cityscape Dataset
 
 ```sh
-python client_kfold.py --data data/CityScape-Dataset-KFold/ --meta data/CityScape-Dataset-KFold/ --name CityScapeKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCSPFolded.txt
+python train_kfold.py --data data/CityScape-Dataset-KFold/ --meta data/CityScape-Dataset-KFold/ --name CityScapeKFold --folds 5 --epochs 10 --batch 1 --loss crossentropy --model Custom_Slim_UNet > UnifiedCSPFolded.txt
+```
+
+## KFold Federated commmands
+
+### Chennai Dataset
+
+```sh
+python client_kfold.py --data data/Chennai-Federated-Dataset-KFold/C1 --meta data/Chennai-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCHN1 > clientKFoldCHN1.txt
+```
+
+```sh
+python client_kfold.py --data data/Chennai-Federated-Dataset-KFold/C2 --meta data/Chennai-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCHN2 > clientKFoldCHN2.txt
+```
+
+```sh
+python client_kfold.py --data data/Chennai-Federated-Dataset-KFold/C3 --meta data/Chennai-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCHN3 > clientKFoldCHN3.txt
+```
+
+### Cityscape Dataset
+
+```sh
+python client_kfold.py --data data/CityScape-Federated-Dataset-KFold/C1 --meta data/CityScape-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCSP1 > clientKFoldCSP1.txt
+```
+
+```sh
+python client_kfold.py --data data/CityScape-Federated-Dataset-KFold/C2 --meta data/CityScape-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCSP2 > clientKFoldCSP2.txt
+```
+
+```sh
+python client_kfold.py --data data/CityScape-Federated-Dataset-KFold/C3 --meta data/CityScape-Federated-Dataset-KFold --folds 5 --epochs 10 --loss crossentropy --batch 1 --model Custom_Slim_UNet --name clientKFoldCSP3 > clientKFoldCSP3.txt
 ```
