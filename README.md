@@ -1,5 +1,8 @@
 # U-Net for Semantic Segmentation
 
+Code For the paper : [MDPI](https://www.mdpi.com/2079-9292/12/4/896) | [Arxiv](https://arxiv.org/abs/2212.02196)
+Full Code Implementation (including Knowledge Distillation) available [here](https://github.com/kinshukdua/FedUKD)
+
 ## Overview
 
 This repo has the code to train and test U-Net for Semantic Segmentation task over images. Contains both conventional as well as Federated Traning using FedAvg algorithm in Flower framework.
