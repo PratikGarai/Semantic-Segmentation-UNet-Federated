@@ -1,6 +1,6 @@
 # U-Net for Semantic Segmentation
 
-Code For the paper : [MDPI](https://www.mdpi.com/2079-9292/12/4/896) | [Arxiv](https://arxiv.org/abs/2212.02196)
+Code For the paper : [MDPI](https://www.mdpi.com/2079-9292/12/4/896) | [Arxiv](https://arxiv.org/abs/2212.02196) <br />
 Full Code Implementation (including Knowledge Distillation) available [here](https://github.com/kinshukdua/FedUKD)
 
 ## Overview
